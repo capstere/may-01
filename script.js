@@ -1,16 +1,16 @@
-// Funktion för asynkront väntande
+// Asynkron väntfunktion
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Nedräknare till 2025-05-01
+// Nedräkning till 2025-05-01 (visas högst upp)
 function updateCountdown() {
   const countdownElem = document.getElementById("countdown");
-  const target = new Date("2025-05-01T00:00:00");
+  const targetDate = new Date("2025-05-01T00:00:00");
   function tick() {
     const now = new Date();
-    const diff = target - now;
-    if(diff <= 0) {
+    const diff = targetDate - now;
+    if (diff <= 0) {
       countdownElem.textContent = "The day has arrived!";
       return;
     }
@@ -24,60 +24,54 @@ function updateCountdown() {
   tick();
 }
 
-// Huvudsekvensen som triggas vid startknapp-klick
+// Huvudsekvens – startas vid klick på startknappen
 async function startSequence() {
   // Dölj startknappen
   document.getElementById("start-button").style.display = "none";
 
-  // Visa introtexten ("long time ago ...")
-  const intro = document.getElementById("start");
-  intro.classList.remove("hidden");
-
-  // Vänta tills introtextens animation (2s) är klar
+  // Visa intro-texten ("long time ago...")
+  const introText = document.getElementById("start-text");
+  introText.classList.remove("hidden");
+  // Vänta tills introtextens animation (2 s) ska vara klar
   await sleep(2100);
 
-  // Visa "SPAR WARS" (h1) – dess animation (logo) startar med 2.5s delay
+  // Visa "SPAR WARS" (h1) – animation startar med 2.5 s delay
   const logo = document.querySelector("h1");
   logo.classList.remove("hidden");
-
-  // Vänta något kort innan vi startar intro-musiken (för att tajma med SPAR WARS)
+  // Vänta lite innan vi startar musiken (för att tajma med SPAR WARS)
   await sleep(500);
   const bgMusic = document.getElementById("bgMusic");
-  // Starta musiken med en fördröjning efter att SPAR WARS-animeringen bör ha börjat
   bgMusic.muted = false;
   bgMusic.play().catch(err => console.error("Audio error:", err));
 
-  // Visa crawl-texten (titles) – den animeras automatiskt enligt CSS
+  // Visa crawl-texten (titles)
   const titles = document.getElementById("titles");
   titles.classList.remove("hidden");
-
-  // Vänta på att crawl-animationen ska vara färdig (100s + 4s delay = 104s)
-  // (Du kan justera tiden om du vill ha en kortare version)
-  await sleep(30000);
+  // Vänta tills crawl-animationen är färdig (30 s + 4 s delay = 34 s)
+  await sleep(34000);
   // Dölj crawl-texten
   titles.style.display = "none";
 
-  // Visa planetbilden med cinematiskt in-fall
+  // Visa planetbilden med cinematic in-fall
   const planet = document.getElementById("planet-effect");
   planet.classList.remove("hidden");
   planet.classList.add("active-planet");
-
-  // Vänta planetanimationens längd (exempelvis 8 sek)
+  // Vänta under planetanimationens tid (ex. 8 s)
   await sleep(8000);
 
-  // Visa finala element: "RETURN OF THE JESP" och ljudknappar (fade in)
+  // Visa finala elementen ("RETURN OF THE JESP" och ljudknappar)
   const finalElems = document.getElementById("final-elements");
   finalElems.classList.remove("hidden");
   finalElems.style.opacity = 1;
 }
 
-// Konfigurera ljudknapparna så att de spelar sina respektive ljud
+// Konfigurera ljudknapparna för att spela sina respektive ljud
 function setupSoundButtons() {
   const buttons = document.querySelectorAll("#buttons .btn");
   buttons.forEach(button => {
     button.addEventListener("click", () => {
       const soundFile = button.getAttribute("data-sound");
-      if(soundFile) {
+      if (soundFile) {
         const audio = new Audio(`assets/${soundFile}`);
         audio.play().catch(err => console.error("Sound playback error:", err));
       }
@@ -85,7 +79,7 @@ function setupSoundButtons() {
   });
 }
 
-// Starta nedräkning vid sidladdning
+// Starta nedräkningen vid sidladdning
 updateCountdown();
 
 // Vid klick på startknappen, starta hela sekvensen
