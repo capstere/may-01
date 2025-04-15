@@ -16,8 +16,8 @@ html {
   overflow: hidden;
   /* Fast animerad bakgrund med vita stjärnor */
   background: url('assets/bg-stars.jpeg') no-repeat center center;
-  background-size: cover;
-  animation: bgScroll 30s linear infinite;
+  background-size: 150%;
+  animation: bgScroll 30s linear forwards;
 }
 @keyframes bgScroll {
   from { background-position: center top; }
