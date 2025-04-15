@@ -1,29 +1,22 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Return of the JESP</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Fast nedräkning (visas högst upp) -->
-  <div id="countdown"></div>
 
-  <!-- Startknapp (centrerad) -->
-  <button id="start-button">MAY THE JESP BE WITH YOU</button>
+  <!-- Intro-text (den animeras via CSS-keyframes "intro") -->
+  <p id="start"> long time ago, in a cepheid far,<br> far away....</p>
 
-  <!-- Introtext – visas först vid start (initialt dold med klassen "hidden") -->
-  <p id="intro" class="hidden">
-    long time ago, in a cepheid far,<br> far away….
-  </p>
+  <!-- Logotypen "SPAR WARS" animeras med keyframes "logo" -->
+  <h1>SPAR WARS</h1>
 
-  <!-- Logotyp: "SPAR WARS" -->
-  <h1 id="logo" class="hidden">SPAR WARS</h1>
-
-  <!-- Crawl-text: scrollande text enligt klassiskt Star Wars-flöde -->
-  <div id="titles" class="hidden">
+  <!-- Crawl-texten med filmisk 3D-scroll (animeras med "scroll") -->
+  <div id="titles">
     <div id="titlecontent">
-      <p class="center">Episode TBD<br>RETURN OF THE JESP</p>
+      <p class="center">Episode TBD<br />RETURN OF THE JESP</p>
       <p>It is a period of vendor war.</p>
       <p>The Jedi Knight known only as JESP has been summoned back from self-imposed exile by the FIRST ORDER.</p>
       <p>After vanishing without a trace, JESP was secretly captured by the sinister GURULAB.</p>
@@ -36,22 +29,8 @@
     </div>
   </div>
 
-  <!-- Planetbild med cinematiskt in-fall -->
-  <img id="planet-effect" class="hidden" src="images/planet.png" alt="Planet">
-
-  <!-- Finala element: "RETURN OF THE JESP" och ljudknappar (dolda initialt) -->
-  <div id="final-elements" class="hidden">
-    <div id="main-title">RETURN OF THE JESP</div>
-    <div id="buttons">
-      <button class="btn" data-sound="sound1.mp3">J</button>
-      <button class="btn" data-sound="sound2.mp3">E</button>
-      <button class="btn" data-sound="sound3.mp3">S</button>
-      <button class="btn" data-sound="sound4.mp3">P</button>
-    </div>
-  </div>
-
-  <!-- Ljud: Bakgrundsmusik -->
-  <audio id="bgMusic" src="assets/intro.mp3" preload="auto" muted></audio>
+  <!-- Audio: Intro-musiken (kommer att spelas när SPAR WARS visas) -->
+  <audio id="bgMusic" src="assets/intro.mp3" preload="auto"></audio>
 
   <script src="script.js"></script>
 </body>
