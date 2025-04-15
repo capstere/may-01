@@ -1,91 +1,307 @@
-// Hjälpfunktion: sleep (för att vänta asynkront)
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
+
+* {
+  padding: 0;
+  margin: 0;
 }
 
-// Enkel nedräknare – här sätts måldatumet till imorgon för exemplet
-function updateCountdown() {
-  const countdownElement = document.getElementById("countdown");
-  const targetDate = new Date();
-  targetDate.setDate(targetDate.getDate() + 1);
-  const update = () => {
-    const now = new Date();
-    const diff = targetDate - now;
-    if (diff <= 0) {
-      countdownElement.textContent = "The day has arrived!";
-      return;
-    }
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-    countdownElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    setTimeout(update, 1000);
-  };
-  update();
+body,
+html {
+  width: 100%;
+  height: 100%;
+  font-family: "Droid Sans", arial, verdana, sans-serif;
+  font-weight: 700;
+  color: #ff6;
+  background-color: #000;
+  overflow: hidden;
 }
 
-// Huvudsekvensen som styr introflödet
-async function startSequence() {
-  // Dölj startknappen
-  document.getElementById("start-button").style.display = "none";
-  
-  // Avmuta och starta bakgrundsmusiken (assets/intro.mp3)
-  const bgMusic = document.getElementById("bgMusic");
-  bgMusic.muted = false;
-  bgMusic.removeAttribute("muted");
-  bgMusic.play().catch(err => console.error("Audio error:", err));
-  
-  // Visa introtexten (fade in/out via CSS-animation)
-  const intro = document.getElementById("intro");
-  intro.classList.remove("hidden");
-  // Vänta ca 3 sekunder (animationens längd)
-  await sleep(3000);
-  
-  // Visa logotypen "SPAR WARS" (CSS-animationen meddelay startar)
-  const logo = document.getElementById("logo");
-  logo.classList.remove("hidden");
-  // Vänta 7.5 sekunder (ungefär logotypens animationslängd)
-  await sleep(7500);
-  
-  // Visa crawl-texten (där scroll-animationen startar med 4 sekunders delay)
-  const titles = document.getElementById("titles");
-  titles.classList.remove("hidden");
-  // Vänta tills crawl-animationen (20 sek + 4 sek delay = 24 s) är klar
-  await sleep(24000);
-  // Dölj crawl-texten permanent
-  titles.style.display = "none";
-  
-  // Visa planetbilden – aktivera cinematic effekt
-  const planet = document.getElementById("planet-effect");
-  planet.classList.remove("hidden");
-  planet.classList.add("active-planet");
-  // Vänta planetanimationens längd (exempelvis 8 sek)
-  await sleep(8000);
-  
-  // Visa finala elementen: "RETURN OF THE JESP" samt ljudknapparna
-  const finalElements = document.getElementById("final-elements");
-  finalElements.classList.remove("hidden");
-  finalElements.style.opacity = 1;
+/* Introtext-animation (p#start) */
+p#start {
+  position: relative;
+  width: 16em;
+  font-size: 200%;
+  font-weight: 400;
+  margin: 20% auto;
+  color: #4ee;
+  opacity: 0;
+  z-index: 1;
+  -webkit-animation: intro 2s ease-out;
+  -moz-animation: intro 2s ease-out;
+  -ms-animation: intro 2s ease-out;
+  -o-animation: intro 2s ease-out;
+  animation: intro 2s ease-out;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
 }
 
-// Konfigurerar klick för ljudknapparna så att de spelar sina respektive ljud
-function setupSoundButtons() {
-  const buttons = document.querySelectorAll("#buttons .btn");
-  buttons.forEach(button => {
-    button.addEventListener("click", () => {
-      const soundFile = button.getAttribute("data-sound");
-      if (soundFile) {
-        const audio = new Audio(`static/sounds/${soundFile}`);
-        audio.play().catch(err => console.error("Sound playback error:", err));
-      }
-    });
-  });
+@-webkit-keyframes intro {
+  0% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
-// Starta hela flödet när startknappen klickas
-document.getElementById("start-button").addEventListener("click", () => {
-  updateCountdown();
-  startSequence();
-  setupSoundButtons();
-});
+@-moz-keyframes intro {
+  0% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-ms-keyframes intro {
+  0% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-o-keyframes intro {
+  0% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes intro {
+  0% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* SPAR WARS (h1) – zoom och fade (animation "logo") */
+h1 {
+  position: absolute;
+  width: 2.6em;
+  left: 50%;
+  top: 25%;
+  font-size: 10em;
+  text-align: center;
+  margin-left: -1.3em;
+  line-height: 0.8em;
+  letter-spacing: -0.05em;
+  color: #000;
+  text-shadow: -2px -2px 0 #ff6, 2px -2px 0 #ff6, -2px 2px 0 #ff6, 2px 2px 0 #ff6;
+  opacity: 0;
+  z-index: 1;
+  -webkit-animation: logo 5s ease-out 2.5s;
+  -moz-animation: logo 5s ease-out 2.5s;
+  -ms-animation: logo 5s ease-out 2.5s;
+  -o-animation: logo 5s ease-out 2.5s;
+  animation: logo 5s ease-out 2.5s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+h1 sub {
+  display: block;
+  font-size: 0.3em;
+  letter-spacing: 0;
+  line-height: 0.8em;
+}
+
+@-webkit-keyframes logo {
+  0% {
+    -webkit-transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(0.1);
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes logo {
+  0% {
+    -moz-transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    -moz-transform: scale(0.1);
+    opacity: 0;
+  }
+}
+
+@-ms-keyframes logo {
+  0% {
+    -ms-transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    -ms-transform: scale(0.1);
+    opacity: 0;
+  }
+}
+
+@-o-keyframes logo {
+  0% {
+    -o-transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    -o-transform: scale(0.1);
+    opacity: 0;
+  }
+}
+
+@keyframes logo {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+}
+
+/* 3D-scroll (crawl-texten) */
+#titles {
+  position: absolute;
+  width: 18em;
+  height: 50em;
+  bottom: 0;
+  left: 50%;
+  margin-left: -9em;
+  font-size: 350%;
+  text-align: justify;
+  overflow: hidden;
+  -webkit-transform-origin: 50% 100%;
+  -moz-transform-origin: 50% 100%;
+  -ms-transform-origin: 50% 100%;
+  -o-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
+  -webkit-transform: perspective(300px) rotateX(25deg);
+  -moz-transform: perspective(300px) rotateX(25deg);
+  -ms-transform: perspective(300px) rotateX(25deg);
+  -o-transform: perspective(300px) rotateX(25deg);
+  transform: perspective(300px) rotateX(25deg);
+}
+
+#titles:after {
+  position: absolute;
+  content: ' ';
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 60%;
+  background-image: -webkit-linear-gradient(top, rgba(0,0,0,1) 0%, transparent 100%);
+  background-image: -moz-linear-gradient(top, rgba(0,0,0,1) 0%, transparent 100%);
+  background-image: -ms-linear-gradient(top, rgba(0,0,0,1) 0%, transparent 100%);
+  background-image: -o-linear-gradient(top, rgba(0,0,0,1) 0%, transparent 100%);
+  background-image: linear-gradient(top, rgba(0,0,0,1) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+#titles p {
+  text-align: justify;
+  margin: 0.8em 0;
+}
+
+#titles p.center {
+  text-align: center;
+}
+
+#titles a {
+  color: #ff6;
+  text-decoration: underline;
+}
+
+/* Crawl-textens innehåll */
+#titlecontent {
+  position: absolute;
+  top: 100%;
+  -webkit-animation: scroll 100s linear 4s 1 forwards;
+  -moz-animation: scroll 100s linear 4s 1 forwards;
+  -ms-animation: scroll 100s linear 4s 1 forwards;
+  -o-animation: scroll 100s linear 4s 1 forwards;
+  animation: scroll 100s linear 4s 1 forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes scroll {
+  0% {
+    top: 100%;
+  }
+  100% {
+    top: -170%;
+  }
+}
+
+@-moz-keyframes scroll {
+  0% {
+    top: 100%;
+  }
+  100% {
+    top: -170%;
+  }
+}
+
+@-ms-keyframes scroll {
+  0% {
+    top: 100%;
+  }
+  100% {
+    top: -170%;
+  }
+}
+
+@-o-keyframes scroll {
+  0% {
+    top: 100%;
+  }
+  100% {
+    top: -170%;
+  }
+}
+
+@keyframes scroll {
+  0% {
+    top: 100%;
+  }
+  100% {
+    top: -170%;
+  }
+}
