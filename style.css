@@ -6,7 +6,7 @@
   margin: 0;
 }
 
-/* Basinställningar för body och html */
+/* Basinställningar */
 body,
 html {
   width: 100%;
@@ -14,12 +14,13 @@ html {
   font-family: "Droid Sans", arial, verdana, sans-serif;
   font-weight: 700;
   color: #ff6;
-  background: #000;
+  background-color: #000;
   overflow: hidden;
   position: relative;
 }
 
-/* --- Animerad stjärnhimmel via pseudo-element --- */
+/* --- Egen animerad stjärnhimmel --- */
+/* Pseudo-element för stjärnhimlen – den syns från början (ingen animation) */
 body::before {
   content: "";
   position: fixed;
@@ -27,16 +28,20 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  /* Skapa stjärnor med radial gradient */
   background: radial-gradient(white 1px, transparent 0);
   background-size: 40px 40px;
   z-index: -1;
-  /* Animation: 30 sekunder, rör sig uppåt och stannar */
-  animation: starsMove 30s linear forwards;
+  transform: translateY(0);
 }
-@keyframes starsMove {
+
+/* När vi vill trigga "falling" effekten på stjärnorna (dvs. att de rör sig för att möta planeten),
+   läggs klassen "falling" på body, vilket startar animationen */
+body.falling::before {
+  animation: starsFall 30s linear forwards;
+}
+@keyframes starsFall {
   from { transform: translateY(0); }
-  to { transform: translateY(-50%); }
+  to   { transform: translateY(50%); }
 }
 
 /* Hjälpklass för att dölja element initialt */
@@ -44,7 +49,7 @@ body::before {
   display: none;
 }
 
-/* Nedräkning: fast centrerad högst upp */
+/* Nedräkning – fast centrerad högst upp */
 #countdown {
   position: absolute;
   top: 10px;
@@ -55,7 +60,7 @@ body::before {
   z-index: 1000;
 }
 
-/* Startknapp: centrerad */
+/* Startknappen – centrerad */
 #start-button {
   position: absolute;
   top: 50%;
@@ -164,7 +169,7 @@ h1 {
   100% { transform: scale(0.1); opacity: 0; }
 }
 
-/* Crawl-texten (3D-scroll) – justerad till 30 sekunder (plus 4 s delay) */
+/* Crawl-texten (3D-scroll) – justerad till 30 sekunder med 4 sekunders delay */
 #titles {
   position: absolute;
   width: 18em;
@@ -211,7 +216,7 @@ h1 {
   color: #ff6;
   text-decoration: underline;
 }
-/* Crawl-textens innehåll – animation med 30 sekunder varaktighet och 4 sekunders delay */
+/* Innehållet i crawl-texten – animation 30 s + 4 s delay */
 #titlecontent {
   position: absolute;
   top: 100%;
@@ -260,7 +265,7 @@ h1 {
   transform: translateX(-50%) translateY(0);
 }
 
-/* Finala element: "RETURN OF THE JESP" + ljudknappar */
+/* Finala element: "RETURN OF THE JESP" + ljudknappar (fade-in med snygg övergång) */
 #final-elements {
   position: absolute;
   top: 50%;
@@ -286,7 +291,7 @@ h1 {
   border: 2px solid black;
   border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, opacity 1.5s ease-in-out;
 }
 #buttons .btn:hover {
   transform: scale(1.1);
