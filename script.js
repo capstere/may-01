@@ -1,9 +1,13 @@
-// Funktion för asynkront väntande
+/*******************************
+ * Asynkron väntfunktion
+ *******************************/
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Nedräkning till 2025-05-01 (visas högst upp)
+/*******************************
+ * Nedräknare till 2025-05-01
+ *******************************/
 function updateCountdown() {
   const countdownElem = document.getElementById("countdown");
   const targetDate = new Date("2025-05-01T00:00:00");
@@ -24,56 +28,59 @@ function updateCountdown() {
   tick();
 }
 
-// Huvudsekvens – startas vid klick på startknappen
+/*******************************
+ * startSequence – huvudflödet
+ *******************************/
 async function startSequence() {
   // Dölj startknappen
   document.getElementById("start-button").style.display = "none";
 
-  // Visa intro-texten ("long time ago ...")
+  // 1. Visa intro-text (2 s)
   const introText = document.getElementById("start-text");
   introText.classList.remove("hidden");
-  await sleep(2100);  // Vänta tills introtextens animation är klar
+  await sleep(2100);
 
-  // Visa "SPAR WARS" (h1) – animation startar med 2,5 s delay
+  // 2. SPAR WARS (5 s inkl 2.5 s delay)
   const logo = document.querySelector("h1");
   logo.classList.remove("hidden");
-  await sleep(500);   // Kort väntan innan musiken startar
 
-  // Starta intro-musiken (med assets/intro.mp3)
+  // 3. Starta intro-musiken efter ~0.5 s
+  await sleep(500);
   const bgMusic = document.getElementById("bgMusic");
   bgMusic.muted = false;
   bgMusic.play().catch(err => console.error("Audio error:", err));
 
-  // Visa crawl-texten ("titles")
+  // 4. Visa crawl-texten (30 s + 4 s delay)
   const titles = document.getElementById("titles");
   titles.classList.remove("hidden");
-  // Vänta tills crawl-animationen är klar (30 s + 4 s delay = 34 s)
+  // Vänta 34 s tills den är klar
   await sleep(34000);
-  // Dölj crawl-texten
   titles.style.display = "none";
 
-  // Nu triggar vi stjärnhimmelns "falling" effekt – lägg till klassen "falling" på body
+  // 5. Låt stjärnorna "falla" mot planeten (klass "falling" på body)
   document.body.classList.add("falling");
 
-  // Visa planetbilden med cinematic in-fall
+  // 6. Planet in-fall (1 s transition)
   const planet = document.getElementById("planet-effect");
   planet.classList.remove("hidden");
   planet.classList.add("active-planet");
-  // Vänta under planetanimationens varaktighet (exempelvis 8 sek)
+  // Vänta t.ex. 8 s
   await sleep(8000);
 
-  // Visa finala element ("RETURN OF THE JESP" och ljudknappar) med fade-in
+  // 7. Visa finala element (fade-in via CSS transition)
   const finalElems = document.getElementById("final-elements");
   finalElems.classList.remove("hidden");
   finalElems.style.opacity = 1;
 }
 
-// Konfigurera ljudknapparna så att de spelar sina respektive ljud
+/*******************************
+ * Ljudknappar
+ *******************************/
 function setupSoundButtons() {
   const buttons = document.querySelectorAll("#buttons .btn");
   buttons.forEach(button => {
     button.addEventListener("click", () => {
-      const soundFile = button.getAttribute("data-sound");
+      const soundFile = button.dataset.sound;
       if (soundFile) {
         const audio = new Audio(`assets/${soundFile}`);
         audio.play().catch(err => console.error("Sound playback error:", err));
@@ -82,10 +89,12 @@ function setupSoundButtons() {
   });
 }
 
-// Starta nedräkningen vid sidladdning
+/*******************************
+ * Vid sidladdning
+ *******************************/
 updateCountdown();
 
-// Vid klick på startknappen, starta hela sekvensen
+// När startknappen klickas – kör introsekvensen
 document.getElementById("start-button").addEventListener("click", () => {
   setupSoundButtons();
   startSequence();
