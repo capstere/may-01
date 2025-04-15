@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
   <meta charset="UTF-8" />
   <title>Return of the JESP</title>
@@ -7,21 +7,26 @@
 </head>
 <body>
 
-    <!-- Nedräkningstimer -->
-    <div id="countdown"></div>
+  <!-- Nedräkning (fast positionerad högst upp) -->
+  <div id="countdown"></div>
 
-    <!-- Startknapp -->
-    <button id="start" aria-label="Starta Star Wars-introt">
-      MAY THE JESP BE WITH YOU
-    </button>
+  <!-- Startknapp (centrerad) -->
+  <button id="start-button" aria-label="Starta Star Wars-introt">
+    MAY THE JESP BE WITH YOU
+  </button>
 
-  <p id="start"> long time ago, in a cepheid far,<br> far away....</p>
+  <!-- Introtext: "long time ago, in a cepheid far, far away...." (dold initialt) -->
+  <p id="intro-text" class="hidden">
+    long time ago, in a cepheid far,<br> far away....
+  </p>
 
-  <h1>SPAR WARS</h1>
+  <!-- SPAR WARS-text (dold initialt) -->
+  <h1 id="spar-wars" class="hidden">SPAR WARS</h1>
 
-  <div id="titles">
+  <!-- Crawl-texten med filmiskt scrollande (dold initialt) -->
+  <div id="titles" class="hidden">
     <div id="titlecontent">
-      <p class="center">Episode TBD<br />RETURN OF THE JESP</p>
+      <p class="center">Episode TBD<br>RETURN OF THE JESP</p>
       <p>It is a period of vendor war.</p>
       <p>The Jedi Knight known only as JESP has been summoned back from self-imposed exile by the FIRST ORDER.</p>
       <p>After vanishing without a trace, JESP was secretly captured by the sinister GURULAB.</p>
@@ -34,21 +39,23 @@
     </div>
   </div>
 
-      <!-- Planetbild -->
-    <img id="planet-effect" src="images/planet.png" alt="Planet" />
-    
-    <!-- Final text och knappar -->
-    <div id="main-title">RETURN OF THE JESP</div>
-    <div id="buttons">
+  <!-- Planetbild med cinematiskt in-fall (dold initialt) -->
+  <img id="planet-effect" class="hidden" src="images/planet.png" alt="Planet">
+
+  <!-- Finala element: "RETURN OF THE JESP" samt knapparna (dolda initialt) -->
+  <div id="final-elements">
+    <div id="main-title" class="hidden">RETURN OF THE JESP</div>
+    <div id="buttons" class="hidden">
       <button class="btn" data-sound="sound1.mp3">J</button>
       <button class="btn" data-sound="sound2.mp3">E</button>
       <button class="btn" data-sound="sound3.mp3">S</button>
       <button class="btn" data-sound="sound4.mp3">P</button>
     </div>
-    
-    <!-- Ljud -->
-<audio id="bgMusic" src="assets/intro.mp3" preload="auto" muted></audio>
-    <audio id="soundPlayer"></audio>
+  </div>
+
+  <!-- Ljud: Bakgrundsmusik + extra ljudspelare -->
+  <audio id="bgMusic" src="assets/intro.mp3" preload="auto" muted></audio>
+  <audio id="soundPlayer"></audio>
 
   <script src="script.js"></script>
 </body>
