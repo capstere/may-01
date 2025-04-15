@@ -53,7 +53,7 @@ async function startSequence() {
 
   // Vänta på att crawl-animationen ska vara färdig (100s + 4s delay = 104s)
   // (Du kan justera tiden om du vill ha en kortare version)
-  await sleep(104000);
+  await sleep(30000);
   // Dölj crawl-texten
   titles.style.display = "none";
 
