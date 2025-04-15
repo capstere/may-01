@@ -1,10 +1,12 @@
 @import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
 
+/* Reset */
 * {
   padding: 0;
   margin: 0;
 }
 
+/* Basinställningar för body och html */
 body,
 html {
   width: 100%;
@@ -12,16 +14,29 @@ html {
   font-family: "Droid Sans", arial, verdana, sans-serif;
   font-weight: 700;
   color: #ff6;
-  background-color: #000;
+  background: #000;
   overflow: hidden;
-  /* Fast animerad bakgrund med vita stjärnor */
-  background: url('assets/bg-stars.jpeg') no-repeat center center;
-  background-size: 150%;
-  animation: bgScroll 30s linear forwards;
+  position: relative;
 }
-@keyframes bgScroll {
-  from { background-position: center top; }
-  to   { background-position: center bottom; }
+
+/* --- Animerad stjärnhimmel via pseudo-element --- */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Skapa stjärnor med radial gradient */
+  background: radial-gradient(white 1px, transparent 0);
+  background-size: 40px 40px;
+  z-index: -1;
+  /* Animation: 30 sekunder, rör sig uppåt och stannar */
+  animation: starsMove 30s linear forwards;
+}
+@keyframes starsMove {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
 }
 
 /* Hjälpklass för att dölja element initialt */
@@ -29,7 +44,7 @@ html {
   display: none;
 }
 
-/* Nedräkning – fast centrerad högst upp */
+/* Nedräkning: fast centrerad högst upp */
 #countdown {
   position: absolute;
   top: 10px;
@@ -40,7 +55,7 @@ html {
   z-index: 1000;
 }
 
-/* Startknappen – centrerad */
+/* Startknapp: centrerad */
 #start-button {
   position: absolute;
   top: 50%;
@@ -56,8 +71,8 @@ html {
   z-index: 1100;
 }
 
-/* p#start: Introtext (animerad med keyframes "intro") */
-p#start {
+/* Introtext (p#start-text) med animation "intro" */
+#start-text {
   position: relative;
   width: 16em;
   font-size: 200%;
@@ -100,7 +115,7 @@ p#start {
   100% { opacity: 0; }
 }
 
-/* h1 – SPAR WARS: animeras med keyframes "logo" */
+/* SPAR WARS (h1) med animation "logo" */
 h1 {
   position: absolute;
   width: 2.6em;
@@ -122,13 +137,6 @@ h1 {
   animation: logo 5s ease-out 2.5s;
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
-}
-
-h1 sub {
-  display: block;
-  font-size: 0.3em;
-  letter-spacing: 0;
-  line-height: 0.8em;
 }
 @-webkit-keyframes logo {
   0%   { -webkit-transform: scale(1); opacity: 1; }
@@ -156,7 +164,7 @@ h1 sub {
   100% { transform: scale(0.1); opacity: 0; }
 }
 
-/* Crawl-texten (3D-scroll) – med keyframe "scroll" */
+/* Crawl-texten (3D-scroll) – justerad till 30 sekunder (plus 4 s delay) */
 #titles {
   position: absolute;
   width: 18em;
@@ -203,15 +211,15 @@ h1 sub {
   color: #ff6;
   text-decoration: underline;
 }
-/* Innehållet i crawl-texten */
+/* Crawl-textens innehåll – animation med 30 sekunder varaktighet och 4 sekunders delay */
 #titlecontent {
   position: absolute;
   top: 100%;
-  -webkit-animation: scroll 100s linear 4s 1 forwards;
-  -moz-animation: scroll 100s linear 4s 1 forwards;
-  -ms-animation: scroll 100s linear 4s 1 forwards;
-  -o-animation: scroll 100s linear 4s 1 forwards;
-  animation: scroll 100s linear 4s 1 forwards;
+  -webkit-animation: scroll 30s linear 4s 1 forwards;
+  -moz-animation: scroll 30s linear 4s 1 forwards;
+  -ms-animation: scroll 30s linear 4s 1 forwards;
+  -o-animation: scroll 30s linear 4s 1 forwards;
+  animation: scroll 30s linear 4s 1 forwards;
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
@@ -247,7 +255,6 @@ h1 sub {
   z-index: 700;
   transition: opacity 1s ease-out, transform 1s ease-out;
 }
-/* När vi ska visa planeten läggs klassen "active-planet" på */
 .active-planet {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
