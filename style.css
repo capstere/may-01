@@ -57,7 +57,7 @@
   transform: translateX(-50%);
   width: 100%;
   opacity: 0;
-  z-index: -2;
+  z-index: 100;
   animation: planetSlideIn var(--planet-animation-duration) ease-out forwards;
 }
 
