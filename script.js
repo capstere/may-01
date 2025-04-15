@@ -1,14 +1,14 @@
 /*******************************
- * Konfigurationsparametrar
+ * Konfiguration
  *******************************/
 const CONFIG = {
-  countdownTargetDate: "2025-05-01T00:00:00", // Exempelmåldatum
-    planetDuration: 8000,          // Från t=26 s till t=34 s: Planetanimationens längd (ms)
-  finalFadeDuration: 3000        // Från t=34 s och framåt: Final fade-in (ms)
+  countdownTargetDate: "2025-05-01T00:00:00", // Anpassa måldatumet
+  planetDuration: 8000,          // Planetanimationens längd (ms)
+  finalFadeDuration: 3000        // Fade-in tid för finala elementen (ms)
 };
 
 /*******************************
- * Hjälpfunktioner
+ * Hjälpfunktion: sleep
  *******************************/
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -38,63 +38,71 @@ function updateCountdown() {
  * Huvudsekvens: startIntro
  *******************************/
 async function startIntro() {
-  // 1. Dölj startknappen
-  document.getElementById("start-button").style.display = "none";
+  // Dölj startknappen
+  const startButton = document.getElementById("start-button");
+  startButton.style.display = "none";
 
-    // 9. Vid t= (16+crawlDuration) s: Visa planet-effekten
-  const planetEffect = document.getElementById("planet-effect");
-  planetEffect.style.display = "block";
+  // Starta bakgrundsmusiken (assets/intro.mp3)
+  const bgMusic = document.getElementById("bgMusic");
+  bgMusic.muted = false;
+  bgMusic.removeAttribute("muted");
+  try {
+    await bgMusic.play();
+  } catch (error) {
+    console.error("Audio playback failed:", error);
+  }
+
+  // Visa intro-texten
+  const introText = document.getElementById("intro-text");
+  introText.classList.remove("hidden");
+  // Låt CSS-transitionen göra sitt: sätt opacity till 1
+  introText.style.opacity = 1;
+  await sleep(1500);
+
+  // Visa SPAR WARS-texten samtidigt
+  const sparWars = document.getElementById("spar-wars");
+  sparWars.classList.remove("hidden");
+  sparWars.style.opacity = 1;
+
+  // Visa crawl-texten (som animeras via CSS)
+  const titles = document.getElementById("titles");
+  titles.classList.remove("hidden");
+  // Vänta på crawl-animationens slut (20s + 2s delay)
+  await sleep(22000);
+  titles.style.display = "none"; // Dölj crawl-texten permanent
+
+  // Visa planetbilden med cinematic effekt
+  const planet = document.getElementById("planet-effect");
+  planet.classList.remove("hidden");
+  // Trigger transition: sätt opacity och transform
+  planet.style.opacity = 1;
+  planet.style.transform = "translateX(-50%) translateY(0)";
   await sleep(CONFIG.planetDuration);
 
-    // 10. Vid t= (16+crawlDuration+planetDuration) s: Visa final text och knappar (fade-in via CSS)
+  // Visa finala element (main title och knappar) med fade in
   const mainTitle = document.getElementById("main-title");
   const buttons = document.getElementById("buttons");
-  mainTitle.style.display = "block";
-  buttons.style.display = "block";
-  buttons.style.opacity = "1";
+  mainTitle.classList.remove("hidden");
+  buttons.classList.remove("hidden");
+  mainTitle.style.opacity = 1;
+  buttons.style.opacity = 1;
 }
 
 /*******************************
- * Ljudfunktioner
+ * Ljuduppspelning
  *******************************/
 function playSound(file) {
-  // Metod 1: Skapa en ny Audio-instans för varje knapptryck – detta säkerställer oberoende uppspelning
-  const buttonAudio = new Audio(`static/sounds/${file}`);
-  buttonAudio.play().catch(error => {
+  // Skapa en ny Audio-instans så att flera ljud kan spelas samtidigt
+  const audio = new Audio(`static/sounds/${file}`);
+  audio.play().catch(error => {
     console.error("Sound playback error:", error);
   });
-  
-  /* 
-  Metod 2 (alternativ): Om du vill återanvända ett audio-element (soundPlayer),
-  se till att den inte påverkas av bgMusic.
-  
-  const soundPlayer = document.getElementById("soundPlayer");
-  soundPlayer.muted = false;
-  soundPlayer.removeAttribute("muted");
-  soundPlayer.pause();
-  soundPlayer.currentTime = 0;
-  soundPlayer.src = `static/sounds/${file}`;
-  soundPlayer.play().catch(error => {
-    console.error("Sound playback error:", error);
-  });
-  */
 }
 
 /*******************************
  * Event Listeners & Initiering
  *******************************/
-document.getElementById("start-button").addEventListener("click", async () => {
-  // Säkerställ att bakgrundsmusiken inte är muted:
-  const bgMusic = document.getElementById("bgMusic");
-  bgMusic.muted = false;             // Använd booleskt false, inte strängen "false"
-  bgMusic.removeAttribute("muted");  // Ta bort muted-attributet
-  try {
-    await bgMusic.play();            // Starta bakgrundsmusiken direkt vid klick
-  } catch (error) {
-    console.error("Audio playback failed:", error);
-  }
-
-  // Starta nedräkning och introsekvens
+document.getElementById("start-button").addEventListener("click", () => {
   updateCountdown();
   startIntro();
 });
