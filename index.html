@@ -1,20 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
   <meta charset="UTF-8" />
   <title>Return of the JESP</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Fast nedräkning (visas högst upp centrerat) -->
+  <div id="countdown"></div>
 
-  <!-- Intro-text (den animeras via CSS-keyframes "intro") -->
-  <p id="start"> long time ago, in a cepheid far,<br> far away....</p>
+  <!-- Startknapp (centrerad) -->
+  <button id="start-button">MAY THE JESP BE WITH YOU</button>
 
-  <!-- Logotypen "SPAR WARS" animeras med keyframes "logo" -->
-  <h1>SPAR WARS</h1>
+  <!-- Introtext (animerad enligt keyframes "intro") – döljs initialt -->
+  <p id="start" class="hidden">
+    long time ago, in a cepheid far,<br> far away….
+  </p>
 
-  <!-- Crawl-texten med filmisk 3D-scroll (animeras med "scroll") -->
-  <div id="titles">
+  <!-- SPAR WARS (logotypen, animerad enligt keyframes "logo") – döljs initialt -->
+  <h1 class="hidden">SPAR WARS</h1>
+
+  <!-- Crawl-texten – klassisk Star Wars-scroll med 3D-effekt – döljs initialt -->
+  <div id="titles" class="hidden">
     <div id="titlecontent">
       <p class="center">Episode TBD<br />RETURN OF THE JESP</p>
       <p>It is a period of vendor war.</p>
@@ -29,7 +36,21 @@
     </div>
   </div>
 
-  <!-- Audio: Intro-musiken (kommer att spelas när SPAR WARS visas) -->
+  <!-- Planetbild med cinematiskt in-fall – döljs initialt -->
+  <img id="planet-effect" class="hidden" src="images/planet.png" alt="Planet">
+
+  <!-- Finala element: "RETURN OF THE JESP" och fyra ljudknappar – döljs initialt -->
+  <div id="final-elements" class="hidden">
+    <div id="main-title">RETURN OF THE JESP</div>
+    <div id="buttons">
+      <button class="btn" data-sound="sound1.mp3">J</button>
+      <button class="btn" data-sound="sound2.mp3">E</button>
+      <button class="btn" data-sound="sound3.mp3">S</button>
+      <button class="btn" data-sound="sound4.mp3">P</button>
+    </div>
+  </div>
+
+  <!-- Audio: Intro-musik (kommer att spelas med fördröjning) -->
   <audio id="bgMusic" src="assets/intro.mp3" preload="auto"></audio>
 
   <script src="script.js"></script>
