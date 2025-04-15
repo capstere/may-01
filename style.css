@@ -2,8 +2,8 @@
 
 /* Reset */
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 /* Basinställningar */
@@ -14,42 +14,52 @@ html {
   font-family: "Droid Sans", arial, verdana, sans-serif;
   font-weight: 700;
   color: #ff6;
-  background-color: #000;
+  background-color: #000; /* ren svart bakgrund */
   overflow: hidden;
   position: relative;
 }
 
-/* --- Egen animerad stjärnhimmel --- */
-/* Pseudo-element för stjärnhimlen – den syns från början (ingen animation) */
+/* --- Stjärnhimmel --- */
+/*
+   Pseudo-elementet syns från början; vi gör stjärnorna större/tätare
+   så de blir mer tydliga.
+*/
 body::before {
   content: "";
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(white 1px, transparent 0);
-  background-size: 40px 40px;
+  inset: 0;
   z-index: -1;
+  background-color: #000; /* fallback om gradient inte syns */
+  /*
+    Nedan: genererar större vita prickar
+    radial-gradient(vitt 2px, transparent 3px)
+    repeteras var 25px. Ändra gärna efter eget tycke.
+  */
+  background-image: radial-gradient(white 2px, transparent 3px);
+  background-size: 25px 25px;
   transform: translateY(0);
 }
 
-/* När vi vill trigga "falling" effekten på stjärnorna (dvs. att de rör sig för att möta planeten),
-   läggs klassen "falling" på body, vilket startar animationen */
+/*
+   När stjärnorna ska falla för att "möta planeten",
+   lägger vi till klassen "falling" på <body>.
+   Vi animerar pseudo-elementet 30s (forwards).
+*/
 body.falling::before {
   animation: starsFall 30s linear forwards;
 }
+
 @keyframes starsFall {
   from { transform: translateY(0); }
   to   { transform: translateY(50%); }
 }
 
-/* Hjälpklass för att dölja element initialt */
+/* Hjälpklass – initialt döljer vi element */
 .hidden {
   display: none;
 }
 
-/* Nedräkning – fast centrerad högst upp */
+/* Nedräkning (överst, centrerat) */
 #countdown {
   position: absolute;
   top: 10px;
@@ -60,7 +70,7 @@ body.falling::before {
   z-index: 1000;
 }
 
-/* Startknappen – centrerad */
+/* Startknapp (centrerad) */
 #start-button {
   position: absolute;
   top: 50%;
@@ -86,34 +96,9 @@ body.falling::before {
   color: #4ee;
   opacity: 0;
   z-index: 1;
-  -webkit-animation: intro 2s ease-out;
-  -moz-animation: intro 2s ease-out;
-  -ms-animation: intro 2s ease-out;
-  -o-animation: intro 2s ease-out;
-  animation: intro 2s ease-out;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
+  animation: intro 2s ease-out forwards;
 }
-@-webkit-keyframes intro {
-  0%   { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { opacity: 0; }
-}
-@-moz-keyframes intro {
-  0%   { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { opacity: 0; }
-}
-@-ms-keyframes intro {
-  0%   { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { opacity: 0; }
-}
-@-o-keyframes intro {
-  0%   { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { opacity: 0; }
-}
+
 @keyframes intro {
   0%   { opacity: 1; }
   90%  { opacity: 1; }
@@ -132,44 +117,20 @@ h1 {
   line-height: 0.8em;
   letter-spacing: -0.05em;
   color: #000;
-  text-shadow: -2px -2px 0 #ff6, 2px -2px 0 #ff6, -2px 2px 0 #ff6, 2px 2px 0 #ff6;
+  text-shadow: -2px -2px 0 #ff6, 2px -2px 0 #ff6,
+               -2px 2px 0 #ff6, 2px 2px 0 #ff6;
   opacity: 0;
   z-index: 1;
-  -webkit-animation: logo 5s ease-out 2.5s;
-  -moz-animation: logo 5s ease-out 2.5s;
-  -ms-animation: logo 5s ease-out 2.5s;
-  -o-animation: logo 5s ease-out 2.5s;
-  animation: logo 5s ease-out 2.5s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
+  animation: logo 5s ease-out 2.5s forwards;
 }
-@-webkit-keyframes logo {
-  0%   { -webkit-transform: scale(1); opacity: 1; }
-  50%  { opacity: 1; }
-  100% { -webkit-transform: scale(0.1); opacity: 0; }
-}
-@-moz-keyframes logo {
-  0%   { -moz-transform: scale(1); opacity: 1; }
-  50%  { opacity: 1; }
-  100% { -moz-transform: scale(0.1); opacity: 0; }
-}
-@-ms-keyframes logo {
-  0%   { -ms-transform: scale(1); opacity: 1; }
-  50%  { opacity: 1; }
-  100% { -ms-transform: scale(0.1); opacity: 0; }
-}
-@-o-keyframes logo {
-  0%   { -o-transform: scale(1); opacity: 1; }
-  50%  { opacity: 1; }
-  100% { -o-transform: scale(0.1); opacity: 0; }
-}
+
 @keyframes logo {
   0%   { transform: scale(1); opacity: 1; }
   50%  { opacity: 1; }
   100% { transform: scale(0.1); opacity: 0; }
 }
 
-/* Crawl-texten (3D-scroll) – justerad till 30 sekunder med 4 sekunders delay */
+/* Crawl-text (3D-scroll), 30 s + 4 s delay -> 34 s total */
 #titles {
   position: absolute;
   width: 18em;
@@ -180,76 +141,39 @@ h1 {
   font-size: 350%;
   text-align: justify;
   overflow: hidden;
-  -webkit-transform-origin: 50% 100%;
-  -moz-transform-origin: 50% 100%;
-  -ms-transform-origin: 50% 100%;
-  -o-transform-origin: 50% 100%;
   transform-origin: 50% 100%;
-  -webkit-transform: perspective(300px) rotateX(25deg);
-  -moz-transform: perspective(300px) rotateX(25deg);
-  -ms-transform: perspective(300px) rotateX(25deg);
-  -o-transform: perspective(300px) rotateX(25deg);
   transform: perspective(300px) rotateX(25deg);
 }
+
 #titles:after {
   position: absolute;
-  content: ' ';
+  content: '';
   left: 0;
   right: 0;
   top: 0;
   bottom: 60%;
-  background-image: -webkit-linear-gradient(top, rgba(0,0,0,1) 0%, transparent 100%);
-  background-image: -moz-linear-gradient(top, rgba(0,0,0,1) 0%, transparent 100%);
-  background-image: -ms-linear-gradient(top, rgba(0,0,0,1) 0%, transparent 100%);
-  background-image: -o-linear-gradient(top, rgba(0,0,0,1) 0%, transparent 100%);
-  background-image: linear-gradient(top, rgba(0,0,0,1) 0%, transparent 100%);
+  background-image: linear-gradient(to bottom,
+                                    rgba(0,0,0,1) 0%, transparent 100%);
   pointer-events: none;
 }
-#titles p {
-  text-align: justify;
-  margin: 0.8em 0;
-}
-#titles p.center {
-  text-align: center;
-}
-#titles a {
-  color: #ff6;
-  text-decoration: underline;
-}
-/* Innehållet i crawl-texten – animation 30 s + 4 s delay */
+
 #titlecontent {
   position: absolute;
   top: 100%;
-  -webkit-animation: scroll 30s linear 4s 1 forwards;
-  -moz-animation: scroll 30s linear 4s 1 forwards;
-  -ms-animation: scroll 30s linear 4s 1 forwards;
-  -o-animation: scroll 30s linear 4s 1 forwards;
   animation: scroll 30s linear 4s 1 forwards;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
 }
-@-webkit-keyframes scroll {
-  0%   { top: 100%; }
-  100% { top: -170%; }
-}
-@-moz-keyframes scroll {
-  0%   { top: 100%; }
-  100% { top: -170%; }
-}
-@-ms-keyframes scroll {
-  0%   { top: 100%; }
-  100% { top: -170%; }
-}
-@-o-keyframes scroll {
-  0%   { top: 100%; }
-  100% { top: -170%; }
-}
+
 @keyframes scroll {
   0%   { top: 100%; }
   100% { top: -170%; }
 }
 
-/* Planetbild med cinematiskt in-fall */
+#titles p {
+  margin: 0.8em 0;
+}
+
+/* Planet (cinematiskt in-fall) */
+/* - Röda ramen för felsökning. Sedan kan du ta bort border i index.html. */
 #planet-effect {
   position: fixed;
   bottom: 0;
@@ -257,7 +181,7 @@ h1 {
   transform: translateX(-50%) translateY(100%);
   width: 100%;
   opacity: 0;
-  z-index: 700;
+  z-index: 900; /* Ökat z-index för att säkerställa synlighet */
   transition: opacity 1s ease-out, transform 1s ease-out;
 }
 .active-planet {
@@ -265,7 +189,7 @@ h1 {
   transform: translateX(-50%) translateY(0);
 }
 
-/* Finala element: "RETURN OF THE JESP" + ljudknappar (fade-in med snygg övergång) */
+/* Finala element: "RETURN OF THE JESP" + ljudknappar (fade-in) */
 #final-elements {
   position: absolute;
   top: 50%;
@@ -276,12 +200,14 @@ h1 {
   transition: opacity 3s ease-in;
   text-align: center;
 }
+
 #main-title {
   font-size: 4em;
   color: #ffe81f;
   text-shadow: 2px 2px 8px rgba(255,232,31,0.8);
   margin-bottom: 20px;
 }
+
 #buttons .btn {
   font-size: 1.5em;
   padding: 12px 24px;
@@ -293,6 +219,7 @@ h1 {
   cursor: pointer;
   transition: transform 0.2s ease-in-out, opacity 1.5s ease-in-out;
 }
+
 #buttons .btn:hover {
   transform: scale(1.1);
 }
