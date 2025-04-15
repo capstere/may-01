@@ -1,47 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Return of the JESP</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <!-- Nedräkningstimer (alltid fast upptill och centrerad) -->
-    <div id="countdown"></div>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <title>Return of the JESP</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Fast nedräkning (visas högst upp) -->
+  <div id="countdown"></div>
 
-    <!-- Startknapp -->
-    <button id="start-button" aria-label="Starta Star Wars-introt">
-      MAY THE JESP BE WITH YOU
-    </button>
+  <!-- Startknapp (centrerad) -->
+  <button id="start-button">MAY THE JESP BE WITH YOU</button>
 
-    <!-- Intro-text (blå) -->
-    <div id="intro-text">
-      long time ago, in a cepheid far,<br> far away....
+  <!-- Introtext – visas först vid start (initialt dold med klassen "hidden") -->
+  <p id="intro" class="hidden">
+    long time ago, in a cepheid far,<br> far away….
+  </p>
+
+  <!-- Logotyp: "SPAR WARS" -->
+  <h1 id="logo" class="hidden">SPAR WARS</h1>
+
+  <!-- Crawl-text: scrollande text enligt klassiskt Star Wars-flöde -->
+  <div id="titles" class="hidden">
+    <div id="titlecontent">
+      <p class="center">Episode TBD<br>RETURN OF THE JESP</p>
+      <p>It is a period of vendor war.</p>
+      <p>The Jedi Knight known only as JESP has been summoned back from self-imposed exile by the FIRST ORDER.</p>
+      <p>After vanishing without a trace, JESP was secretly captured by the sinister GURULAB.</p>
+      <p>The once-promising Jedi has now escaped and returned to his home planet of BROWSKIS.</p>
+      <p>There, alongside the fierce Jedi Knights VDAO and ELS, young JESP must once again board the Milliliter FALCON Tube, a vessel fully equipped for the mission ahead.</p>
+      <p>But JESP has no plan, no understanding of the objective, and confuses hyperspace with emotional growth.</p>
+      <p>Meanwhile, Senator TUKA, obsessed with locating JESP, has dispatched thousands of remote probes into the far reaches of space to uncover his ignorance.</p>
+      <p>Unaware of the trials to come, JESP must now UNLEARN all that he once tried to learn.</p>
+      <p>The fate of the galaxy may hang in the balance… but mostly, everyone just wants to know how he made it this far.</p>
     </div>
+  </div>
 
-    <!-- H1-element med SPAR WARS – denna text animeras (krymper och dras bakåt) -->
-    <h1 id="logo">SPAR WARS</h1>
+  <!-- Planetbild med cinematiskt in-fall -->
+  <img id="planet-effect" class="hidden" src="images/planet.png" alt="Planet">
 
-    <!-- Crawl-sekvens med titlar -->
-    <div id="titles">
-      <div id="titlecontent">
-        <p class="center">EPISODE REV.J<br>RETURN OF THE JESP</p>
-        <p>It is a period of vendor war.</p>
-        <p>The Jedi Knight known only as JESP has been summoned back from self-imposed exile by the FIRST ORDER.</p>
-        <p>After vanishing without a trace, JESP was secretly captured by the sinister GURULAB.</p>
-        <p>The once-promising Jedi has now escaped and returned to his home planet of BROWSKIS.</p>
-        <p>There, alongside the fierce Jedi Knights VDAO and ELS, young JESP must once again board the Milliliter FALCON Tube, a vessel fully equipped for the mission ahead.</p>
-        <p>But JESP has no plan, no understanding of the objective, and confuses hyperspace with emotional growth.</p>
-        <p>Meanwhile, Senator TUKA, obsessed with locating JESP, has dispatched thousands of remote probes into the far reaches of space to uncover his ignorance.</p>
-        <p>Unaware of the trials to come, JESP must now UNLEARN all that he once tried to learn.</p>
-        <p>The fate of the galaxy may hang in the balance… but mostly, everyone just wants to know how he made it this far.</p>
-      </div>
-    </div>
-
-    <!-- Planetbild -->
-    <img id="planet-effect" src="images/planet.png" alt="Planet" />
-
-    <!-- Final text och knappar -->
+  <!-- Finala element: "RETURN OF THE JESP" och ljudknappar (dolda initialt) -->
+  <div id="final-elements" class="hidden">
     <div id="main-title">RETURN OF THE JESP</div>
     <div id="buttons">
       <button class="btn" data-sound="sound1.mp3">J</button>
@@ -49,11 +48,11 @@
       <button class="btn" data-sound="sound3.mp3">S</button>
       <button class="btn" data-sound="sound4.mp3">P</button>
     </div>
+  </div>
 
-    <!-- Ljud -->
-    <audio id="bgMusic" src="assets/intro.mp3" preload="auto" muted></audio>
-    <audio id="soundPlayer"></audio>
+  <!-- Ljud: Bakgrundsmusik -->
+  <audio id="bgMusic" src="assets/intro.mp3" preload="auto" muted></audio>
 
-    <script src="script.js"></script>
-  </body>
+  <script src="script.js"></script>
+</body>
 </html>
