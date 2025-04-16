@@ -172,94 +172,88 @@ h1 {
   transform: translateX(-50%) translateY(0);
 }
 
-/* Finala element: "RETURN OF THE JESP" + ljudknappar (fade-in) */
 #final-elements {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1050;
-  opacity: 0;
-  transition: opacity 3s ease-in;
   text-align: center;
+  z-index: 1050;
 }
+
+/* Huvudrubriken */
 #main-title {
   font-size: 4em;
   color: #ffe81f;
   text-shadow: 2px 2px 8px rgba(255,232,31,0.8);
-  margin-bottom: 20px;
+  margin-bottom: 1em;
 }
 
-/* --- Centrering och gap mellan knappar --- */
+/* --- Flex‑grid för knapparna --- */
 #buttons {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 24px; /* Större avstånd mellan knapparna */
+  gap: 24px;
   flex-wrap: wrap;
 }
 
-/* --- Grundstil på dina "hamburger"‑knappar --- */
+/* --- Grundstil på hamburger‑knapparna --- */
 .hamburger-btn {
   position: relative;
-  padding: 16px 32px;           /* Gör knappen större så all text ryms */
-  font-size: 1.2em;             /* Justera om det behövs */
+  padding: 16px 32px;
+  font-size: 1.2em;
   background: linear-gradient(145deg, #ffe81f, #ffd700);
+  color: black;
   border: 2px solid black;
   border-radius: 8px;
-  color: black;
-  cursor: pointer;
-  overflow: hidden;             /* Klipper av det som går utanför knappen */
-  transition: transform 0.2s ease-in-out;
   text-transform: uppercase;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.2s ease;
 }
 
-/* --- Alla tre inre span‑element positioneras absolut --- */
+/* --- De tre textlagren i varje knapp --- */
 .hamburger-btn span {
   position: absolute;
-  left: 0; width: 100%;
-  text-align: center;
-  transition: transform 0.5s ease;
-  display: block;
-  /* Ingen white-space här – vi låter texten brytas om den är lång, 
-     men du kan lägga till `white-space: nowrap;` om du vill hålla den på en rad */
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
-/* 1) Övre halvan – klipps till bara top 50% */
+/* 1) Övre halvan */
 .hamburger-btn span:nth-child(1) {
-  top: 0; height: 50%;
   clip-path: inset(0 0 50% 0);
 }
-/* 2) Undre halvan – klipps till bara bottom 50% */
+/* 2) Undre halvan */
 .hamburger-btn span:nth-child(2) {
-  bottom: 0; height: 50%;
   clip-path: inset(50% 0 0 0);
 }
-/* 3) Inre extra‑text – centrerad men dold initialt */
+/* 3) Mittdelen (extra‑text), dold initialt */
 .hamburger-btn span:nth-child(3) {
-  top: 50%; height: 50%;
-  transform: translateY(100%) scaleY(0);
-  transform-origin: top center;
+  transform: translate(-50%, -50%) scaleY(0);
+  transform-origin: center center;
+  opacity: 0;
   font-size: 0.8em;
   font-weight: 500;
-  background: #ff6;     /* Gul bakgrund */
-  color: #000;
-  line-height: 1.2;     /* Anpassa radavstånd om du har flera ord */
-  transition: transform 0.5s ease, opacity 0.5s ease;
-  opacity: 0;
+  background: #ffe81f;
+  color: black;
+  padding: 2px 8px;
+  border-radius: 4px;
 }
 
 /* --- Hover‑effekter --- */
 /* Flytta övre halvan uppåt */
 .hamburger-btn:hover span:nth-child(1) {
-  transform: translateY(-50%);
+  transform: translate(-50%, calc(-50% - 0.6em));
 }
-/* Flytta nedre halvan nedåt */
+/* Flytta undre halvan nedåt */
 .hamburger-btn:hover span:nth-child(2) {
-  transform: translateY(50%);
+  transform: translate(-50%, calc(-50% + 0.6em));
 }
-/* Visa den inre extra‑texten */
+/* Visa mitten‑texten */
 .hamburger-btn:hover span:nth-child(3) {
-  transform: translateY(0) scaleY(1);
+  transform: translate(-50%, -50%) scaleY(1);
   opacity: 1;
 }
