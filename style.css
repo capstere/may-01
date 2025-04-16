@@ -1,12 +1,12 @@
 @import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
 
-/* Reset */
+/* 1) Reset */
 * {
   margin: 0;
   padding: 0;
 }
 
-/* Basinställningar */
+/* 2) Basinställningar */
 body,
 html {
   width: 100%;
@@ -17,44 +17,39 @@ html {
   overflow: hidden;
   position: relative;
 
-  /* Stora JPEG‑bakgrunden med stjärnor (ingen animation här) */
+  /* ENDAST statisk bakgrund här */
   background: url('assets/bg-stars.jpeg') no-repeat center top;
   background-size: cover;
 }
 
-/* --- Stjärnhimmel som pseudoelement utan automatisk animation --- */
+/* 3) Pseudo‑element för stjärnhimlen (200vh) utan animation */
 body::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 200vh; /* dubbla viewport‑höjden */
+  height: 200vh; /* Dubbla höjden */
   background: url('assets/bg-stars.jpeg') no-repeat center top;
   background-size: cover;
   transform: translateY(0);
   z-index: -1;
-  /* animation tas bort här */
-  /* animation: starsFall 30s linear forwards; */
 }
 
-/* --- Animation startar ENDAST när .falling läggs på --- */
+/* 4) Animation först när .falling läggs på */
 body.falling::before {
   animation: starsFall 30s linear forwards;
 }
-
 @keyframes starsFall {
-  to {
-    transform: translateY(-100vh);
-  }
+  to { transform: translateY(-100vh); }
 }
 
-/* Hjälpklass – döljer element initialt */
+/* 5) Dölj‑klass */
 .hidden {
   display: none;
 }
 
-/* --- Countdown --- */
+/* 6) Nedräknare */
 #countdown {
   position: absolute;
   top: 10px;
@@ -65,7 +60,7 @@ body.falling::before {
   z-index: 1000;
 }
 
-/* --- Startknapp --- */
+/* 7) Startknapp */
 #start-button {
   position: absolute;
   top: 50%;
@@ -81,7 +76,7 @@ body.falling::before {
   z-index: 1100;
 }
 
-/* --- Intro‑text --- */
+/* 8) Intro‑text */
 #start-text {
   position: relative;
   width: 16em;
@@ -98,7 +93,7 @@ body.falling::before {
   100%    { opacity: 0; }
 }
 
-/* --- SPAR WARS-logga --- */
+/* 9) SPAR WARS-logga */
 h1 {
   position: absolute;
   width: 2.6em;
@@ -124,7 +119,7 @@ h1 {
   100% { transform: scale(0.1); opacity: 0; }
 }
 
-/* --- Crawl‑text (3D‑scroll) --- */
+/* 10) Crawl‑text */
 #titles {
   position: absolute;
   width: 18em;
@@ -162,7 +157,7 @@ h1 {
   text-align: center;
 }
 
-/* --- Planetbild med cinematic in‑fall --- */
+/* 11) Planetbild med cinematic in‑fall */
 #planet-effect {
   position: fixed;
   bottom: 0;
@@ -178,7 +173,7 @@ h1 {
   transform: translateX(-50%) translateY(0);
 }
 
-/* --- Finala element: titel + knappar --- */
+/* 12) Finala element */
 #final-elements {
   position: absolute;
   top: 50%;
@@ -193,7 +188,7 @@ h1 {
   opacity: 1;
 }
 
-/* Huvudrubrik */
+/* 13) Main title */
 #main-title {
   font-size: 4em;
   color: #ffe81f;
@@ -201,7 +196,7 @@ h1 {
   margin-bottom: 1em;
 }
 
-/* Flex‑grid för knapparna */
+/* 14) Knapparna – flexgrid */
 #buttons {
   display: flex;
   justify-content: center;
@@ -210,7 +205,7 @@ h1 {
   flex-wrap: wrap;
 }
 
-/* Grundknapp (större) */
+/* 15) Grundknapp (större) */
 .hamburger-btn {
   position: relative;
   padding: 24px 48px;
@@ -225,7 +220,7 @@ h1 {
   transition: transform 0.2s ease;
 }
 
-/* Tre textlager i varje knapp */
+/* 16) Tre textlager i varje knapp */
 .hamburger-btn span {
   position: absolute;
   top: 50%;
@@ -253,7 +248,7 @@ h1 {
   z-index: 1;
 }
 
-/* Hover‑effekter: dela och visa mitten */
+/* 17) Hover‑effekter: dela och visa mitten */
 .hamburger-btn:hover span:nth-child(1) {
   transform: translate(-50%, calc(-50% - 0.8em));
 }
