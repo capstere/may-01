@@ -6,21 +6,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Nedräkning -->
+  <!-- 1) Nedräknings-timer -->
   <div id="countdown"></div>
 
-  <!-- Startknapp -->
+  <!-- 2) Startknapp -->
   <button id="start-button">MAY THE JESP BE WITH YOU</button>
 
-  <!-- Introtext -->
+  <!-- 3) Intro-text -->
   <p id="start-text" class="hidden">
     long time ago, in a cepheid far,<br> far away….
   </p>
 
-  <!-- SPAR WARS -->
+  <!-- 4) SPAR WARS-logga -->
   <h1 class="hidden">SPAR WARS</h1>
-  
-  <!-- Crawl-texten (klassisk 3D-scroll) -->
+
+  <!-- 5) Crawl-text (3D-scroll) -->
   <div id="titles" class="hidden">
     <div id="titlecontent">
       <p class="center">Episode TBD<br />RETURN OF THE JESP</p>
@@ -36,10 +36,10 @@
     </div>
   </div>
 
-  <!-- Planet (felsökningsram) -->
+  <!-- 6) Planetbild med felsökningsram -->
   <img id="planet-effect" class="hidden" src="assets/planet.png" alt="Planet" style="border:2px solid red;">
 
-  <!-- Finala element -->
+  <!-- 7) Finala element: titel + fyra "hamburger"-knappar -->
   <div id="final-elements" class="hidden">
     <div id="main-title">RETURN OF THE JESP</div>
     <div id="buttons">
@@ -66,8 +66,10 @@
     </div>
   </div>
 
-  <!-- Ljud -->
+  <!-- 8) Bakgrundsmusik (intro) -->
   <audio id="bgMusic" src="assets/intro.mp3" preload="auto"></audio>
+
+  <!-- 9) JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
