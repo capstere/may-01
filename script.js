@@ -1,90 +1,58 @@
 // Asynkron väntfunktion
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+// 1) Nedräknare till 2025‑05‑01
+function updateCountdown(){
+  const el = document.getElementById("countdown");
+  const tgt = new Date("2025-05-01T00:00:00");
+  (function tick(){
+    const diff = tgt - new Date();
+    if(diff <= 0){ el.textContent = "The day has arrived!"; return; }
+    const d = Math.floor(diff/864e5),
+          h = Math.floor(diff/36e5%24),
+          m = Math.floor(diff/6e4%60),
+          s = Math.floor(diff/1e3%60);
+    el.textContent = `${d}d ${h}h ${m}m ${s}s`;
+    setTimeout(tick,1000);
+  })();
 }
 
-// Nedräkning till 2025-05-01
-function updateCountdown() {
-  const countdownElem = document.getElementById("countdown");
-  const targetDate = new Date("2025-05-01T00:00:00");
-  function tick() {
-    const now = new Date();
-    const diff = targetDate - now;
-    if(diff <= 0) {
-      countdownElem.textContent = "The day has arrived!";
-      return;
-    }
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-    countdownElem.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    setTimeout(tick, 1000);
-  }
-  tick();
-}
-
-// Huvudsekvens – startas vid klick på startknappen
-async function startSequence() {
-  // Dölj startknappen
+// 2) Huvudsekvens
+async function startSequence(){
   document.getElementById("start-button").style.display = "none";
-
-  // 1. Visa intro-text (2 s)
-  const introText = document.getElementById("start-text");
-  introText.classList.remove("hidden");
+  document.getElementById("start-text").classList.remove("hidden");
   await sleep(2100);
-
-  // 2. Visa "SPAR WARS" (h1) – animation med 2,5 s delay
-  const logo = document.querySelector("h1");
-  logo.classList.remove("hidden");
-
-  // 3. Starta intro-musiken efter ~0.5 s
+  document.querySelector("h1").classList.remove("hidden");
   await sleep(500);
-  const bgMusic = document.getElementById("bgMusic");
-  bgMusic.muted = false;
-  bgMusic.play().catch(err => console.error("Audio error:", err));
-
-  // 4. Visa crawl-texten (30 s + 4 s delay)
-  const titles = document.getElementById("titles");
-  titles.classList.remove("hidden");
+  const bg = document.getElementById("bgMusic");
+  bg.muted = false;
+  bg.play().catch(()=>{});
+  document.getElementById("titles").classList.remove("hidden");
   await sleep(34000);
-  titles.style.display = "none";
-
-  // 5. Trigga stjärnornas "falling" effekt (lägg till klass "falling" på body)
+  document.getElementById("titles").style.display = "none";
   document.body.classList.add("falling");
-
-  // 6. Visa planetbilden med cinematic in-fall
   const planet = document.getElementById("planet-effect");
   planet.classList.remove("hidden");
   planet.classList.add("active-planet");
   await sleep(8000);
-
-  // 7. Visa finala element med fade-in
-  const finalElems = document.getElementById("final-elements");
-  finalElems.classList.remove("hidden");
-  finalElems.style.opacity = 1;
+  document.getElementById("final-elements").classList.remove("hidden");
 }
 
-
-
-
-// Ljudknappar
-function setupSoundButtons() {
-  const buttons = document.querySelectorAll(".hamburger-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const file = btn.dataset.sound;
-    if (file) new Audio(`assets/${file}`).play();
-        audio.play().catch(err => console.error("Sound playback error:", err));
-      }
+// 3) Sätt upp ljudknapparna
+function setupSoundButtons(){
+  document.querySelectorAll(".hamburger-btn")
+    .forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        const f = btn.dataset.sound;
+        if(f) new Audio(`assets/${f}`).play().catch(()=>{});
+      });
     });
-  });
 }
 
-// Starta nedräkningen vid sidladdning
+// Initiera
 updateCountdown();
-
-// Vid klick på start-knappen, starta hela sekvensen
-document.getElementById("start-button").addEventListener("click", () => {
-  setupSoundButtons();
-  startSequence();
-});
+document.getElementById("start-button")
+  .addEventListener("click", ()=>{
+    setupSoundButtons();
+    startSequence();
+  });
