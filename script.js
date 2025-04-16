@@ -65,14 +65,15 @@ async function startSequence() {
   finalElems.style.opacity = 1;
 }
 
+
+
+
 // Ljudknappar
 function setupSoundButtons() {
-  const buttons = document.querySelectorAll("#buttons .btn");
-  buttons.forEach(button => {
-    button.addEventListener("click", () => {
-      const soundFile = button.dataset.sound;
-      if(soundFile) {
-        const audio = new Audio(`assets/${soundFile}`);
+  const buttons = document.querySelectorAll(".hamburger-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const file = btn.dataset.sound;
+    if (file) new Audio(`assets/${file}`).play();
         audio.play().catch(err => console.error("Sound playback error:", err));
       }
     });
