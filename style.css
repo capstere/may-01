@@ -189,17 +189,60 @@ h1 {
   text-shadow: 2px 2px 8px rgba(255,232,31,0.8);
   margin-bottom: 20px;
 }
-#buttons .btn {
+
+#buttons
+  .btn {
+  position: relative; /* Gör att de absoluta barnen placeras relativt knappen */
   font-size: 1.5em;
   padding: 12px 24px;
-  margin: 8px;
+  margin: 12px;  /* Ger mer utrymme mellan knapparna */
   background: linear-gradient(145deg, #ffe81f, #ffd700);
   color: black;
   border: 2px solid black;
   border-radius: 8px;
   cursor: pointer;
+  overflow: hidden; /* Klipper av innehåll som går utanför knappen */
   transition: transform 0.2s ease-in-out, opacity 1.5s ease-in-out;
 }
-#buttons .btn:hover {
-  transform: scale(1.1);
+
+/* Basinställningar för de inre span-elementen */
+.btn span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.5s;
+}
+
+/* Första raden: placeras i toppen och klipps in i övre halvan */
+.btn span.line1 {
+  top: 0;
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+}
+.btn:hover span.line1 {
+  transform: translateY(-18px);
+}
+
+/* Andra raden: placeras i botten och klipps in i nedre halvan */
+.btn span.line2 {
+  bottom: 0;
+  clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+}
+.btn:hover span.line2 {
+  transform: translateY(18px);
+}
+
+/* Tredje raden: centreras och startar dold (scaleY(0)), expanderar vid hover */
+.btn span.line3 {
+  top: 50%;
+  transform: translateY(-50%) scaleY(0);
+  background: rgba(255, 255, 0, 0.8);
+  font-size: 0.8em;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
+  transition: transform 0.5s;
+}
+.btn:hover span.line3 {
+  transform: translateY(-50%) scaleY(1);
 }
