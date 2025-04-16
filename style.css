@@ -16,9 +16,13 @@ html {
   color: #ff6;
   overflow: hidden;
   position: relative;
+
+  /* Stora JPEG‑bakgrunden med stjärnor (ingen animation här) */
+  background: url('assets/bg-stars.jpeg') no-repeat center top;
+  background-size: cover;
 }
 
-/* --- Stjärnhimmel som pseudoelement (200vh för kamerapan) --- */
+/* --- Stjärnhimmel som pseudoelement utan automatisk animation --- */
 body::before {
   content: "";
   position: absolute;
@@ -30,10 +34,19 @@ body::before {
   background-size: cover;
   transform: translateY(0);
   z-index: -1;
+  /* animation tas bort här */
+  /* animation: starsFall 30s linear forwards; */
+}
+
+/* --- Animation startar ENDAST när .falling läggs på --- */
+body.falling::before {
   animation: starsFall 30s linear forwards;
 }
+
 @keyframes starsFall {
-  to { transform: translateY(-100vh); }
+  to {
+    transform: translateY(-100vh);
+  }
 }
 
 /* Hjälpklass – döljer element initialt */
@@ -188,7 +201,7 @@ h1 {
   margin-bottom: 1em;
 }
 
-/* Flex‑grid for knapparna */
+/* Flex‑grid för knapparna */
 #buttons {
   display: flex;
   justify-content: center;
@@ -221,18 +234,14 @@ h1 {
   white-space: nowrap;
   transition: transform 0.5s ease, opacity 0.5s ease;
 }
-
-/* Övre halvan */
 .hamburger-btn span:nth-child(1) {
   clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
   z-index: 2;
 }
-/* Undre halvan */
 .hamburger-btn span:nth-child(2) {
   clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
   z-index: 2;
 }
-/* Mitten‑text (gul utan bakgrund) */
 .hamburger-btn span:nth-child(3) {
   transform: translate(-50%, -50%) scaleY(0);
   transform-origin: center center;
