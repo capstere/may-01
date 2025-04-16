@@ -6,20 +6,20 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Fast nedräkning (visas högst upp centrerat) -->
+  <!-- Nedräkning -->
   <div id="countdown"></div>
 
-  <!-- Startknapp (centrerad) -->
+  <!-- Startknapp -->
   <button id="start-button">MAY THE JESP BE WITH YOU</button>
 
-  <!-- Introtext (animerad – visas först vid start) -->
+  <!-- Introtext -->
   <p id="start-text" class="hidden">
     long time ago, in a cepheid far,<br> far away….
   </p>
 
-  <!-- SPAR WARS (logotyp, animerad) -->
+  <!-- SPAR WARS -->
   <h1 class="hidden">SPAR WARS</h1>
-
+  
   <!-- Crawl-texten (klassisk 3D-scroll) -->
   <div id="titles" class="hidden">
     <div id="titlecontent">
@@ -36,39 +36,38 @@
     </div>
   </div>
 
-  <!-- Planetbild med cinematiskt in-fall -->
-  <!-- Röd ram för felsökning; ta bort senare när du ser bilden -->
-  <img id="planet-effect" class="hidden" src="assets/planet.png" alt="Planet" style="border: 2px solid red;">
+  <!-- Planet (felsökningsram) -->
+  <img id="planet-effect" class="hidden" src="assets/planet.png" alt="Planet" style="border:2px solid red;">
 
-<div id="final-elements">
-  <div id="main-title">RETURN OF THE JESP</div>
-  <div id="buttons">
-    <button class="hamburger-btn" data-sound="sound1.mp3">
-      <span>TEXT KNAPP 1</span>
-      <span>TEXT KNAPP 1</span>
-      <span>EXTRA KNAPP 1</span>
-    </button>
-    <button class="hamburger-btn" data-sound="sound2.mp3">
-      <span>TEXT KNAPP 2</span>
-      <span>TEXT KNAPP 2</span>
-      <span>EXTRA KNAPP 2</span>
-    </button>
-    <button class="hamburger-btn" data-sound="sound3.mp3">
-      <span>TEXT KNAPP 3</span>
-      <span>TEXT KNAPP 3</span>
-      <span>EXTRA KNAPP 3</span>
-    </button>
-    <button class="hamburger-btn" data-sound="sound4.mp3">
-      <span>TEXT KNAPP 4</span>
-      <span>TEXT KNAPP 4</span>
-      <span>EXTRA KNAPP 4</span>
-    </button>
+  <!-- Finala element -->
+  <div id="final-elements" class="hidden">
+    <div id="main-title">RETURN OF THE JESP</div>
+    <div id="buttons">
+      <button class="hamburger-btn" data-sound="sound1.mp3">
+        <span>TEXT KNAPP 1</span>
+        <span>TEXT KNAPP 1</span>
+        <span>EXTRA KNAPP 1</span>
+      </button>
+      <button class="hamburger-btn" data-sound="sound2.mp3">
+        <span>TEXT KNAPP 2</span>
+        <span>TEXT KNAPP 2</span>
+        <span>EXTRA KNAPP 2</span>
+      </button>
+      <button class="hamburger-btn" data-sound="sound3.mp3">
+        <span>TEXT KNAPP 3</span>
+        <span>TEXT KNAPP 3</span>
+        <span>EXTRA KNAPP 3</span>
+      </button>
+      <button class="hamburger-btn" data-sound="sound4.mp3">
+        <span>TEXT KNAPP 4</span>
+        <span>TEXT KNAPP 4</span>
+        <span>EXTRA KNAPP 4</span>
+      </button>
+    </div>
   </div>
-</div>
 
-  <!-- Audio: Intro-musiken -->
+  <!-- Ljud -->
   <audio id="bgMusic" src="assets/intro.mp3" preload="auto"></audio>
-
   <script src="script.js"></script>
 </body>
 </html>
