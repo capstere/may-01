@@ -190,73 +190,76 @@ h1 {
   margin-bottom: 20px;
 }
 
-#buttons
-  .hamburger-btn {
+/* --- Centrering och gap mellan knappar --- */
+#buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px; /* Större avstånd mellan knapparna */
+  flex-wrap: wrap;
+}
+
+/* --- Grundstil på dina "hamburger"‑knappar --- */
+.hamburger-btn {
   position: relative;
-  font-size: 1.5rem;
-  padding: 20px 40px;
-  margin: 20px;              /* Ökat avstånd mellan knapparna */
+  padding: 16px 32px;           /* Gör knappen större så all text ryms */
+  font-size: 1.2em;             /* Justera om det behövs */
+  background: linear-gradient(145deg, #ffe81f, #ffd700);
   border: 2px solid black;
   border-radius: 8px;
-  background: linear-gradient(145deg, #ffe81f, #ffd700);
   color: black;
   cursor: pointer;
-  overflow: hidden;          /* Klipper text utanför knappen */
+  overflow: hidden;             /* Klipper av det som går utanför knappen */
   transition: transform 0.2s ease-in-out;
-  text-transform: uppercase; /* Om du vill ha samma vibe som i exemplet */
+  text-transform: uppercase;
 }
 
-/* Varje knapp har tre spans:
-   1) Övre halvan
-   2) Undre halvan
-   3) Mitten-texten
-   De placeras överlappande initialt så att det ser ut som ETT ord. */
+/* --- Alla tre inre span‑element positioneras absolut --- */
 .hamburger-btn span {
   position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  font-weight: 700;             /* Exempel: lite tyngre text */
+  left: 0; width: 100%;
   text-align: center;
-  transition: 0.5s;
+  transition: transform 0.5s ease;
+  display: block;
+  /* Ingen white-space här – vi låter texten brytas om den är lång, 
+     men du kan lägga till `white-space: nowrap;` om du vill hålla den på en rad */
 }
 
-/* 1) Övre halvan – klipp bort nedre halvan */
+/* 1) Övre halvan – klipps till bara top 50% */
 .hamburger-btn span:nth-child(1) {
-  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
-  overflow: hidden;
+  top: 0; height: 50%;
+  clip-path: inset(0 0 50% 0);
 }
-/* Vid hover: flytta uppåt med transform: translateY(negativ) */
-.hamburger-btn:hover span:nth-child(1) {
-  transform: translateY(-20px);
-}
-
-/* 2) Undre halvan – klipp bort övre halvan */
+/* 2) Undre halvan – klipps till bara bottom 50% */
 .hamburger-btn span:nth-child(2) {
-  clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
-  overflow: hidden;
+  bottom: 0; height: 50%;
+  clip-path: inset(50% 0 0 0);
 }
-/* Vid hover: flytta nedåt med transform: translateY(positiv) */
-.hamburger-btn:hover span:nth-child(2) {
-  transform: translateY(20px);
+/* 3) Inre extra‑text – centrerad men dold initialt */
+.hamburger-btn span:nth-child(3) {
+  top: 50%; height: 50%;
+  transform: translateY(100%) scaleY(0);
+  transform-origin: top center;
+  font-size: 0.8em;
+  font-weight: 500;
+  background: #ff6;     /* Gul bakgrund */
+  color: #000;
+  line-height: 1.2;     /* Anpassa radavstånd om du har flera ord */
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  opacity: 0;
 }
 
-/* 3) Mitt‑texten – vi döljer den initialt med scaleY(0) och visar vid hover */
-.hamburger-btn span:nth-child(3) {
-  position: absolute;
-  top: 50%;  /* centrera vertikalt */
-  left: 0;
-  transform: translateY(-50%) scaleY(0);
-  transform-origin: center center; /* Viktigt för scaleY */
-  width: 100%;
-  background: #ff0;   /* likt ditt exempel, kan bytas */
-  color: #000;
-  font-size: 0.8em;   /* Mindre text, om du vill */
-  font-weight: 500;
-  text-align: center;
-  padding: 2px 0;
-  transition: transform 0.5s;
+/* --- Hover‑effekter --- */
+/* Flytta övre halvan uppåt */
+.hamburger-btn:hover span:nth-child(1) {
+  transform: translateY(-50%);
 }
-/* Vid hover: expandera mitt‑texten med scaleY(1) */
+/* Flytta nedre halvan nedåt */
+.hamburger-btn:hover span:nth-child(2) {
+  transform: translateY(50%);
+}
+/* Visa den inre extra‑texten */
 .hamburger-btn:hover span:nth-child(3) {
-  transform: translateY(-50%) scaleY(1);
+  transform: translateY(0) scaleY(1);
+  opacity: 1;
 }
