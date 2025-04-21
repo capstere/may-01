@@ -96,11 +96,11 @@ body.falling::before {
 /* 9) SPAR WARS-logga */
 h1 {
   position: absolute;
-  width: 2.6em;
+  width: 18em;
   left: 50%;
-  top: 5%;
+  top: 50%;
   margin-left: -1.3em;
-  font-size: 10em;
+  font-size: 50em;
   line-height: 0.8em;
   letter-spacing: -0.05em;
   color: #000;
